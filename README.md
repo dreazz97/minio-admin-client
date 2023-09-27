@@ -1,6 +1,6 @@
 # MinIO Admin Client
 
-**MinIO Admin Client** is a Python library for the MinIO client that provides admin operations and other functionalities not supported by the official Minio SDK. Please note that this library requires the MinIO client to be installed on the machine.
+**pyminioadmin** is a Python library for the MinIO client (mc) that provides admin operations and other functionalities not supported by the official Minio SDK. Please note that this library requires the MinIO client (mc) to be installed on the machine.
 
 ## Requirements
 
@@ -10,7 +10,7 @@
 ## Usage Example
 
 ```python
-from minio_admin_client import MinioAdminClient
+from pyminioadmin import MinioAdminClient
 
 # Initialize the MinIO Admin Client
 client = MinioAdminClient('host:3000', 'access-key', 'secret-key')
