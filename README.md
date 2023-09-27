@@ -17,6 +17,7 @@ client = MinioAdminClient('host:3000', 'access-key', 'secret-key')
 
 # Example: Create a new user
 client.create_user('new-access-key', 'new-secret-key')
+```
 
 ## Source Code
 
