@@ -1,4 +1,4 @@
-#Python library for the MinIO client (mc) that provides admin operations and others that are not supported yet by the Minio SDK.
+#Minio Admin wrapper using the MinIO client (mc) that provides admin operations and others that are not supported yet by the Minio SDK.
 #Please note that this requires the MinIO client (mc) to operate.
 
 

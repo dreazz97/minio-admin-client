@@ -1,4 +1,4 @@
-#Python library for the MinIO client (mc) that provides admin operations and others that are not supported yet by the Minio SDK.
+#Minio Admin wrapper using the MinIO client (mc) that provides admin operations and others that are not supported yet by the Minio SDK.
 #Please note that this requires the MinIO client (mc) to operate.
 
 
@@ -18,9 +18,9 @@ from setuptools import setup
 
 setup(
     name='pyminioadmin',
-    version='0.0.4',
+    version='0.0.5',
     url="https://github.com/dreazz97/minio-admin-client-lib",
-    description='A Python library for the MinIO admin client',
+    description='A Python wrapper for the MinIO client (mc)',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     author='Iuri Peniche',
