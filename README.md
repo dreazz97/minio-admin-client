@@ -1,16 +1,25 @@
 # MinIO Admin Client
 
-This is a MinIO client for admin operations. Please note that this requires the MinIO client to operate.
+**MinIO Admin Client** is a Python library for the MinIO client that provides admin operations and other functionalities not supported by the official Minio SDK. Please note that this library requires the MinIO client to be installed on the machine.
 
 ## Requirements
 
 - Python and pip installed.
 - MinIO client installed on the machine with the path environment added as `mc`.
 
-## Installation
+## Usage Example
 
-Follow these steps to install:
+```python
+from minio_admin_client import MinioAdminClient
 
-1. Clone the repo.
-2. Open the terminal or PowerShell within the location of the `setup.py` file.
-3. Run the command `py -m pip install .`
+# Initialize the MinIO Admin Client
+client = MinioAdminClient('host:3000', 'access-key', 'secret-key')
+
+# Example: Create a new user
+client.create_user('new-access-key', 'new-secret-key')
+
+## Source Code
+
+The source code for this project is available on GitHub:
+
+[GitHub Repository](https://github.com/dreazz97/minio-admin-client-lib)

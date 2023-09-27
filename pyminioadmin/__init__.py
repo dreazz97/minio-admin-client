@@ -1,3 +1,19 @@
+#Python library for the MinIO client (mc) that provides admin operations and others that are not supported yet by the Minio SDK.
+#Please note that this requires the MinIO client (mc) to operate.
+
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import subprocess
 from typing import Any
 
@@ -22,6 +38,28 @@ class MinioAdminClient:
         else:
             command = f"mc alias set mcadminclient {protocol}{self.endpoint} {self.access_key} {self.secret_key} --insecure"
         subprocess.run(command, shell=True)
+
+    def list_users(self):
+        if self.cert_check == True:
+            full_command = "mc admin user ls mcadminclient"
+        else:
+            full_command = "mc admin user ls mcadminclient --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        if process.returncode != 0:
+            return f"An error occurred: {stderr.decode()}"
+        return stdout.decode()
+
+    def user_info(self, username: str):
+        if self.cert_check == True:
+            full_command = f"mc admin user info mcadminclient {username}"
+        else:
+            full_command = f"mc admin user info mcadminclient {username} --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        if process.returncode != 0:
+            return f"An error occurred: {stderr.decode()}"
+        return stdout.decode()
 
     def create_user(self, access_key: str, secret_key: str):
         if self.cert_check == True:
@@ -84,6 +122,17 @@ class MinioAdminClient:
             full_command = f"mc admin group add mcadminclient {group_name} {members_str}"
         else:
             full_command = f"mc admin group add mcadminclient {group_name} {members_str} --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        if process.returncode != 0:
+            return f"An error occurred: {stderr.decode()}"
+        return stdout.decode()
+    
+    def group_info(self, group_name: str):
+        if self.cert_check == True:
+            full_command = f"mc admin group info mcadminclient {group_name}"
+        else:
+            full_command = f"mc admin group info mcadminclient {group_name} --insecure"
         process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
