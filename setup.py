@@ -18,7 +18,7 @@ from setuptools import setup
 
 setup(
     name='pyminioadmin',
-    version='0.0.6',
+    version='0.0.8',
     url="https://github.com/dreazz97/minio-admin-client-lib",
     description='A Python wrapper for the MinIO client (mc)',
     long_description=open('README.md').read(),
