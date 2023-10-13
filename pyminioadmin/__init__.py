@@ -33,19 +33,18 @@ class MinioAdminClient:
         elif self.secure == False:
             protocol = "http://"
         command = ''
-        protocol_with_endpoint = protocol + self.endpoint
         if self.cert_check == True:
-            command = ["mc", "alias", "set", "mcadminclient", protocol_with_endpoint, self.access_key, self.secret_key]
+            command = f"mc alias set mcadminclient {protocol}{self.endpoint} {self.access_key} {self.secret_key}"
         else:
-            command = ["mc", "alias", "set", "mcadminclient", protocol_with_endpoint, self.access_key, self.secret_key, "--insecure"]
-        subprocess.run(command, shell=False)
+            command = f"mc alias set mcadminclient {protocol}{self.endpoint} {self.access_key} {self.secret_key} --insecure"
+        subprocess.run(command, shell=True)
 
     def list_users(self):
         if self.cert_check == True:
-            full_command = ["mc", "admin", "user", "ls", "mcadminclient"]
+            full_command = "mc admin user ls mcadminclient"
         else:
-            full_command = ["mc", "admin", "user", "ls", "mcadminclient", "--insecure"]
-        process = subprocess.Popen(full_command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            full_command = "mc admin user ls mcadminclient --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
             return f"An error occurred: {stderr.decode()}"
@@ -53,10 +52,10 @@ class MinioAdminClient:
 
     def user_info(self, username: str):
         if self.cert_check == True:
-            full_command = ["mc", "admin", "user", "info", "mcadminclient", username]
+            full_command = f"mc admin user info mcadminclient {username}"
         else:
-            full_command = ["mc", "admin", "user", "info", "mcadminclient", username, "--insecure"]
-        process = subprocess.Popen(full_command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            full_command = f"mc admin user info mcadminclient {username} --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
             return f"An error occurred: {stderr.decode()}"
@@ -64,21 +63,21 @@ class MinioAdminClient:
 
     def create_user(self, access_key: str, secret_key: str):
         if self.cert_check == True:
-            full_command = ["mc", "admin", "user", "add", "mcadminclient", access_key, secret_key]
+            full_command = f"mc admin user add mcadminclient {access_key} {secret_key}"
         else:
-            full_command = ["mc", "admin", "user", "add", "mcadminclient", access_key, secret_key, "--insecure"]
-        process = subprocess.Popen(full_command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            full_command = f"mc admin user add mcadminclient {access_key} {secret_key} --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
             return f"An error occurred: {stderr.decode()}"
         return stdout.decode()
-    
+
     def delete_user(self, access_key: str):
         if self.cert_check == True:
-            full_command = ["mc", "admin", "user", "rm", "mcadminclient", access_key]
+            full_command = f"mc admin user rm mcadminclient {access_key}"
         else:
-            full_command = ["mc", "admin", "user", "rm", "mcadminclient", access_key, "--insecure"]
-        process = subprocess.Popen(full_command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            full_command = f"mc admin user rm mcadminclient {access_key} --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
             return f"An error occurred: {stderr.decode()}"
@@ -86,32 +85,32 @@ class MinioAdminClient:
 
     def disable_user(self, access_key: str):
         if self.cert_check == True:
-            full_command = ["mc", "admin", "user", "disable", "mcadminclient", access_key]
+            full_command = f"mc admin user disable mcadminclient {access_key}"
         else:
-            full_command = ["mc", "admin", "user", "disable", "mcadminclient", access_key, "--insecure"]
-        process = subprocess.Popen(full_command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            full_command = f"mc admin user disable mcadminclient {access_key} --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
             return f"An error occurred: {stderr.decode()}"
         return stdout.decode()
-    
+
     def enable_user(self, access_key: str):
         if self.cert_check == True:
-            full_command = ["mc", "admin", "user", "enable", "mcadminclient", access_key]
+            full_command = f"mc admin user enable mcadminclient {access_key}"
         else:
-            full_command = ["mc", "admin", "user", "enable", "mcadminclient", access_key, "--insecure"]
-        process = subprocess.Popen(full_command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            full_command = f"mc admin user enable mcadminclient {access_key} --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
             return f"An error occurred: {stderr.decode()}"
         return stdout.decode()
-    
+
     def list_groups(self):
         if self.cert_check == True:
-            full_command = ["mc", "admin", "group", "ls", "mcadminclient"]
+            full_command = f"mc admin group ls mcadminclient"
         else:
-            full_command = ["mc", "admin", "group", "ls", "mcadminclient", "--insecure"]
-        process = subprocess.Popen(full_command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            full_command = f"mc admin group ls mcadminclient --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
             return f"An error occurred: {stderr.decode()}"
@@ -120,53 +119,52 @@ class MinioAdminClient:
     def add_members_to_group(self, group_name: str, members: list):
         members_str = ' '.join(members)
         if self.cert_check == True:
-            full_command = ["mc", "admin", "group", "add", "mcadminclient", group_name, members_str]
+            full_command = f"mc admin group add mcadminclient {group_name} {members_str}"
         else:
-            full_command = ["mc", "admin", "group", "add", "mcadminclient", group_name, members_str, "--insecure"]
-        process = subprocess.Popen(full_command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            full_command = f"mc admin group add mcadminclient {group_name} {members_str} --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
             return f"An error occurred: {stderr.decode()}"
         return stdout.decode()
-    
+
     def group_info(self, group_name: str):
         if self.cert_check == True:
-            full_command = ["mc", "admin", "group", "info", "mcadminclient", group_name]
+            full_command = f"mc admin group info mcadminclient {group_name}"
         else:
-            full_command = ["mc", "admin", "group", "info", "mcadminclient", group_name, "--insecure"]
-        process = subprocess.Popen(full_command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            full_command = f"mc admin group info mcadminclient {group_name} --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
             return f"An error occurred: {stderr.decode()}"
         return stdout.decode()
-    
+
     def delete_group(self, group_name: str):
         if self.cert_check == True:
-            full_command = ["mc", "admin", "group", "rm", "mcadminclient", group_name]
+            full_command = f"mc admin group rm mcadminclient {group_name}"
         else:
-            full_command = ["mc", "admin", "group", "rm", "mcadminclient", group_name, "--insecure"]
-        process = subprocess.Popen(full_command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            full_command = f"mc admin group rm mcadminclient {group_name} --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
             return f"An error occurred: {stderr.decode()}"
         return stdout.decode()
-    
+
     def add_bucket_quota(self, bucket_name: str, size: str):
         """
         Suffixes available: k = KB, m = MB, g = GB, t = TB, ki or kib = KiB, mi or mib = MiB, gi or gib = GiB, ti or tib = TiB.
         size(str): should contain a number and one of the suffixes, example: 10g.
         """
-        alias_and_bucket_path = "mcadminclient/" + bucket_name
         if self.cert_check == True:
-            full_command = ["mc", "quota", "set", alias_and_bucket_path, "--size", size]
+            full_command = f"mc quota set mcadminclient/{bucket_name} --size {size}"
         else:
-            full_command = ["mc", "quota", "set", alias_and_bucket_path, "--size", size, "--insecure"]
-        process = subprocess.Popen(full_command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            full_command = f"mc quota set mcadminclient/{bucket_name} --size {size} --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
             return f"An error occurred: {stderr.decode()}"
         return stdout.decode()
-    
+
     def attach_policy(self, type:str, policy: str, value: str):
         """
         type (str): type should be either user or group.
@@ -175,16 +173,15 @@ class MinioAdminClient:
         """
         allowed_types = ['user', 'group']
         allowed_policies = ['readonly', 'readwrite', 'diagnostics', 'writeonly']
-        type_format = "--" + type
         if type not in allowed_types:
             raise ValueError(f"Invalid type {type}. Allowed types are {allowed_types}")
         if policy not in allowed_policies:
             raise ValueError(f"Invalid policy {policy}. Allowed policies are {allowed_policies}")
         if self.cert_check == True:
-            full_command = ["mc", "admin", "policy", "attach", "mcadminclient", policy, type_format, value]
+            full_command = f"mc admin policy attach mcadminclient {policy} --{type} {value}"
         else:
-            full_command = ["mc", "admin", "policy", "attach", "mcadminclient", policy, type_format, value, "--insecure"]
-        process = subprocess.Popen(full_command, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            full_command = f"mc admin policy attach mcadminclient {policy} --{type} {value} --insecure"
+        process = subprocess.Popen(full_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = process.communicate()
         if process.returncode != 0:
             return f"An error occurred: {stderr.decode()}"
